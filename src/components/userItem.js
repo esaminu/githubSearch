@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux';
 
 class UserItem extends Component {
     constructor(props) {
@@ -23,9 +24,13 @@ class UserItem extends Component {
     }
   
     async componentDidMount() {
+      if(this.props.showFollows) {
         const followers = await this.getFollowers()
         const following = await this.getFollowing()
         this.setState({followers,following})
+      } else {
+        this.setState({followers:'',following:''})
+      }
     }
 
     render() {
@@ -47,4 +52,4 @@ class UserItem extends Component {
     }
 }
 
-export default UserItem
+export default connect(state => ({showFollows: state.showFollows}))(UserItem)

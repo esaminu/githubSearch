@@ -32,6 +32,14 @@ class App extends Component {
             <h1>Github Search</h1>
           </div>
           <input type="text" style={styles.searchBar} placeholder='Search User' onChange={e => this.searchText(e.target.value)}/>
+          <label>
+            Show Followers/Following:
+            <input
+              type="checkbox"
+              checked={this.props.showFollows}
+              style={{marginTop:20}}
+              onChange={()=>this.props.setFollows()} />
+          </label>
         </div>
         
         <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
@@ -105,11 +113,13 @@ const mapStateToProps = state => ({
   searchResults: state.searchResults,
   searching: state.searching,
   noOfResults: state.noOfResults,
-  currentQuery: state.latestQuery
+  currentQuery: state.latestQuery,
+  showFollows: state.showFollows
 })
 
 const mapDispatchToProps = dispatch => ({
-  searchUser: (query,page) => dispatch(search(query,page))
+  searchUser: (query,page) => dispatch(search(query,page)),
+  setFollows: () => dispatch({type:'TOGGLE_FOLLOWS'})
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
