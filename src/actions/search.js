@@ -23,3 +23,9 @@ export const search = (query,page) => dispatch => {
                 dispatch({type:'SEARCH_FAIL'});
             })
 }
+
+export const getUserInfo = (user) => dispatch => {
+    return fetch(`https://api.github.com/users/${user}`)
+            .then(res => res.json())
+            .then(info => dispatch({type:'ADD_USER_INFO',info}))
+}
