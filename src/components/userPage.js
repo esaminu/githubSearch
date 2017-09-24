@@ -9,6 +9,7 @@ class UserPage extends React.PureComponent {
         this.props.getUserInfo(this.props.match.params.user)
         this.props.getUserInfo(this.props.match.params.user,'followers')
         this.props.getUserInfo(this.props.match.params.user,'following')
+        this.props.getUserInfo(this.props.match.params.user,'repos')
     }
 
     componentDidUpdate(prevProps) {
@@ -16,6 +17,7 @@ class UserPage extends React.PureComponent {
             this.props.getUserInfo(this.props.match.params.user)
             this.props.getUserInfo(this.props.match.params.user,'followers')
             this.props.getUserInfo(this.props.match.params.user,'following')
+            this.props.getUserInfo(this.props.match.params.user,'repos')
         }
     }
 
@@ -33,6 +35,17 @@ class UserPage extends React.PureComponent {
                     : undefined}
                 </div>
                 <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                    {Array.isArray(this.props.repos) ? 
+                        <div style={{display:'flex',flexDirection:'column',width:'100%',marginRight:20,padding:30}}>
+                            <p style={{fontWeight:'bold',fontSize:'3vw',color:'black',padding:10,alignSelf:'flex-start'}}>Repos:</p>
+                            {this.props.repos.map((repo,idx)=> (
+                                <div key={idx} style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between',width:'100%',padding:10,border:'1px solid black',overflow:'scroll'}}>
+                                    <a href={repo.url} target="_blank" style={{fontSize:'1.5vw',paddingLeft:10,fontWeight:'bold'}}>{repo.name}</a>
+                                    <span style={{fontSize:'1.5vw',paddingLeft:10,fontWeight:'bold'}}>{'Stars:' + repo.stars }</span>
+                                </div>
+                            ))}
+                        </div>
+                    : undefined}
                     {Array.isArray(this.props.followers) ? 
                         <div style={{display:'flex',flexDirection:'column',width:'100%',marginRight:20}}>
                             <p style={{fontWeight:'bold',fontSize:'3vw',color:'black',padding:10,alignSelf:'flex-start'}}>Followers:</p>
@@ -78,7 +91,8 @@ const styles = {
 const mapStateToProps = state => ({
     userInfo: state.userInfo,
     followers: state.followers,
-    following: state.following
+    following: state.following,
+    repos: state.repos
 })
 
 const mapDispatchToProps = dispatch => ({

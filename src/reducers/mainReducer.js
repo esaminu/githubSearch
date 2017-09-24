@@ -11,6 +11,7 @@ const reducer = (state = {searchResults: [],searching:false,showFollows: false} 
         case 'ADD_USER_INFO': return {...state, userInfo:action.info}
         case 'ADD_FOLLOWERS': return {...state, followers:action.info}
         case 'ADD_FOLLOWING': return {...state, following:action.info}
+        case 'ADD_REPOS': return {...state, repos:action.info}
         default: return state
     }
 }

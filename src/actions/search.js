@@ -33,6 +33,11 @@ export const getUserInfo = (user,type) => dispatch => {
                     switch(type) {
                         case 'followers': dispatch({type:'ADD_FOLLOWERS',info}); break;
                         case 'following': dispatch({type:'ADD_FOLLOWING',info}); break;
+                        case 'repos': dispatch({type:'ADD_REPOS',
+                        info:Array.isArray(info) ? info.map(info => ({
+                            name:info.full_name,
+                            stars:info.stargazers_count,
+                            url:info.html_url})) : info}); break;
                         default: break;
                     }
                 }
