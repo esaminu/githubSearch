@@ -24,8 +24,17 @@ export const search = (query,page) => dispatch => {
             })
 }
 
-export const getUserInfo = (user) => dispatch => {
-    return fetch(`https://api.github.com/users/${user}`)
+export const getUserInfo = (user,type) => dispatch => {
+    return fetch(`https://api.github.com/users/${user}${type ? '/' + type : ''}`)
             .then(res => res.json())
-            .then(info => dispatch({type:'ADD_USER_INFO',info}))
+            .then(info => {
+                if(!type) dispatch({type:'ADD_USER_INFO',info})
+                else {
+                    switch(type) {
+                        case 'followers': dispatch({type:'ADD_FOLLOWERS',info}); break;
+                        case 'following': dispatch({type:'ADD_FOLLOWING',info}); break;
+                        default: break;
+                    }
+                }
+            })
 }

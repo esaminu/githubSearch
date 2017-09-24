@@ -9,6 +9,8 @@ const reducer = (state = {searchResults: [],searching:false,showFollows: false} 
         case 'LATEST_QUERY': return {...state, latestQuery:action.query}
         case 'TOGGLE_FOLLOWS': return {...state, showFollows:!state.showFollows}
         case 'ADD_USER_INFO': return {...state, userInfo:action.info}
+        case 'ADD_FOLLOWERS': return {...state, followers:action.info}
+        case 'ADD_FOLLOWING': return {...state, following:action.info}
         default: return state
     }
 }

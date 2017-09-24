@@ -48,7 +48,7 @@ class App extends Component {
             <div style={{display:'flex',flexDirection:'column',width:'100%',marginRight:20}}>
               <p style={{fontWeight:'bold',fontSize:'3vw',color:'black',padding:10,alignSelf:'flex-start'}}>Search Results:</p> 
               {this.props.searchResults.map((user,idx)=> (
-                <UserItem user={user} key={idx}/>
+                <UserItem user={user} key={idx} checked={this.props.showFollows}/>
               ))}         
             </div>
           : undefined}
